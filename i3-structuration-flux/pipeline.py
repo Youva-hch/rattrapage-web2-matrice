@@ -16,10 +16,12 @@ PERIODES = {
 def normaliser_date(valeur):
     """Transforme une date autorisée au format YYYY-MM-DD."""
     try:
-        if "/" in valeur:
+        if len(valeur) == 10 and valeur[2] == "/" and valeur[5] == "/":
             jour, mois, annee = valeur.split("/")
             return date(int(annee), int(mois), int(jour)).isoformat()
-        return date.fromisoformat(valeur).isoformat()
+        if len(valeur) == 10 and valeur[4] == "-" and valeur[7] == "-":
+            return date.fromisoformat(valeur).isoformat()
+        raise ValueError
     except (ValueError, TypeError):
         raise ValueError("date invalide")
 

@@ -50,6 +50,16 @@ def test_ligne_invalide_ne_bloque_pas_la_suite(tmp_path):
     assert json.loads((sortie / "acceptes.ndjson").read_text())["id"] == "ok"
 
 
+def test_formats_de_date_non_autorises(tmp_path):
+    lignes = [
+        json.dumps(seance("compacte", date="20261019")),
+        json.dumps(seance("sans_zero", date="1/2/2026")),
+    ]
+    stats, _ = lancer(tmp_path, lignes)
+
+    assert stats == {"lus": 2, "acceptes": 0, "rejets": 2, "doublons": 0}
+
+
 def test_doublon(tmp_path):
     lignes = [json.dumps(seance("meme")), json.dumps(seance("meme", title="Copie"))]
     stats, _ = lancer(tmp_path, lignes)
