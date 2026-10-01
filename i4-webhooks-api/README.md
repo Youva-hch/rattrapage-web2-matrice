@@ -45,3 +45,11 @@ pytest
 ```
 
 Les tests vérifient la signature, l'ancienneté, les doublons, les retries, le timeout et la quarantaine.
+
+## Fiabilité des livraisons
+
+Chaque événement utilise son `event_id` comme clé d'idempotence. Le partenaire ne crée donc pas deux tickets pour le même événement.
+
+Le récepteur attend au maximum 2 secondes par appel. Il réessaie après 0,2 seconde puis 0,4 seconde pour un timeout, une réponse 429 ou une erreur 5xx. Une autre erreur 4xx n'est pas retentée. Après l'échec final, la livraison passe en quarantaine.
+
+Les logs indiquent seulement l'identifiant de l'événement et le résultat de la livraison. Le secret et la signature ne sont jamais écrits dans les logs.

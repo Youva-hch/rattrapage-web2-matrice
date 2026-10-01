@@ -16,6 +16,6 @@ La validation est faite avant la recherche des doublons. Une ligne invalide ne r
 
 Le récepteur utilise FastAPI et Pydantic pour valider les requêtes. Les livraisons sont conservées dans un dictionnaire Python, car le sujet autorise une mémoire locale.
 
-La signature HMAC est calculée sur le corps brut. Le partenaire reçoit `event_id` dans l'en-tête `Idempotency-Key`. Une erreur temporaire (timeout, 429 ou 5xx) est retentée au maximum trois fois. Une erreur 400 n'est pas retentée.
+La signature HMAC est calculée sur le corps brut. Le partenaire reçoit `event_id` dans l'en-tête `Idempotency-Key`. Le timeout est fixé à 2 secondes. Une erreur temporaire (timeout, 429 ou 5xx) est retentée au maximum trois fois, avec des attentes de 0,2 puis 0,4 seconde. Une erreur 400 n'est pas retentée.
 
 Cette solution reste volontairement simple. Les données de déduplication sont perdues au redémarrage ; une base de données et une file de tâches seraient nécessaires dans une application de production.
