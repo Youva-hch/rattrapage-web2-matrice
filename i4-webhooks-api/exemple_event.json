@@ -1,0 +1,16 @@
+{
+  "event_id": "evt-demo-001",
+  "type": "session.updated",
+  "occurred_at": "2026-10-19T09:00:00+02:00",
+  "session": {
+    "id": "s01",
+    "date": "2026-10-19",
+    "period": "am",
+    "group": "A",
+    "mode": "DG",
+    "title": "React composants",
+    "domain": "web",
+    "teacherId": "t1",
+    "status": "confirmed"
+  }
+}
