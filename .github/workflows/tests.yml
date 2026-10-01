@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-i3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt
+        working-directory: i3-structuration-flux
+      - run: pytest
+        working-directory: i3-structuration-flux
+      - run: python pipeline.py data/seances.ndjson --output output
+        working-directory: i3-structuration-flux
+
+  test-i4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt
+        working-directory: i4-webhooks-api
+      - run: pytest
+        working-directory: i4-webhooks-api

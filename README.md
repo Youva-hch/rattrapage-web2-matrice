@@ -7,6 +7,27 @@ Projet individuel de Youva HOUCHE pour les deux modules attribués :
 
 Chaque dossier contient son propre README avec les commandes d'installation, de lancement et de test.
 
+## Tests rapides
+
+```bash
+cd i3-structuration-flux
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+pytest
+python pipeline.py data/seances.ndjson --output output
+```
+
+Puis, depuis la racine du projet :
+
+```bash
+cd i4-webhooks-api
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+pytest
+```
+
 ## Structure
 
 ```text
